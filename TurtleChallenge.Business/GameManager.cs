@@ -50,7 +50,19 @@ namespace TurtleChallenge.Business
                 switch (nextMove)
                 {
                     case Move.StepForward:
-                        turtleNavigator.ProcessMove(gameSettings.GameBoard, turtle);
+                        bool moveSuccess = turtleNavigator.ProcessMove(gameSettings.GameBoard, turtle);
+
+                        // Because its not clear in the question about the condition when turtle hits the border.
+                        // I have commented the code below which allows the current sequence of moves to stop
+                        // and return border hit message and process the next sequence if any.
+                        /*
+                        if (!moveSuccess)
+                        {
+                            sequenceResult += ": " + turtle.Direction + " border hit!";
+                            return sequenceResult;
+                        }
+                        */
+                        
                         if (gameSettings.Mines.Exists(p => p.Y == turtle.Location.Y && p.X == turtle.Location.X))
                         {
                             sequenceResult += ": Mine hit!";
